@@ -1,9 +1,17 @@
 export type FilingStatus =
     | "Single"
-    | "Married filing jointly"
-    | "Married filing separately"
-    | "Head of household";
+    | "Married Filing Jointly"
+    | "Married Filing Separately"
+    | "Head of Household";
+export const FilingStatuses: FilingStatus[] = [
+    "Single",
+    "Married Filing Jointly",
+    "Married Filing Separately",
+    "Head of Household",
+];
+
 export type TaxYear = "2023" | "2024" | "2025";
+export const TaxYears: TaxYear[] = ["2023", "2024", "2025"];
 
 type Bracket = { taxableIncome: number; taxRate: number }
 type Brackets = Record<
@@ -22,7 +30,7 @@ export const brackets: Brackets = {
             { taxableIncome: 231250, taxRate: 0.35 },
             { taxableIncome: 578125, taxRate: 0.37 },
         ],
-        "Married filing jointly": [
+        "Married Filing Jointly": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 22000, taxRate: 0.12 },
             { taxableIncome: 89450, taxRate: 0.22 },
@@ -31,7 +39,7 @@ export const brackets: Brackets = {
             { taxableIncome: 462500, taxRate: 0.35 },
             { taxableIncome: 693750, taxRate: 0.37 },
         ],
-        "Married filing separately": [
+        "Married Filing Separately": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 11000, taxRate: 0.12 },
             { taxableIncome: 44725, taxRate: 0.22 },
@@ -40,7 +48,7 @@ export const brackets: Brackets = {
             { taxableIncome: 231250, taxRate: 0.35 },
             { taxableIncome: 346875, taxRate: 0.37 },
         ],
-        "Head of household": [
+        "Head of Household": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 15700, taxRate: 0.12 },
             { taxableIncome: 59850, taxRate: 0.22 },
@@ -61,7 +69,7 @@ export const brackets: Brackets = {
             { taxableIncome: 243725, taxRate: 0.35 },
             { taxableIncome: 609350, taxRate: 0.37 },
         ],
-        "Married filing jointly": [
+        "Married Filing Jointly": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 23200, taxRate: 0.12 },
             { taxableIncome: 94300, taxRate: 0.22 },
@@ -70,7 +78,7 @@ export const brackets: Brackets = {
             { taxableIncome: 487450, taxRate: 0.35 },
             { taxableIncome: 731200, taxRate: 0.37 },
         ],
-        "Married filing separately": [
+        "Married Filing Separately": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 11600, taxRate: 0.12 },
             { taxableIncome: 47150, taxRate: 0.22 },
@@ -79,7 +87,7 @@ export const brackets: Brackets = {
             { taxableIncome: 243725, taxRate: 0.35 },
             { taxableIncome: 365600, taxRate: 0.37 },
         ],
-        "Head of household": [
+        "Head of Household": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 16550, taxRate: 0.12 },
             { taxableIncome: 63100, taxRate: 0.22 },
@@ -100,7 +108,7 @@ export const brackets: Brackets = {
             { taxableIncome: 250525, taxRate: 0.35 },
             { taxableIncome: 626350, taxRate: 0.37 },
         ],
-        "Married filing jointly": [
+        "Married Filing Jointly": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 23850, taxRate: 0.12 },
             { taxableIncome: 96950, taxRate: 0.22 },
@@ -109,7 +117,7 @@ export const brackets: Brackets = {
             { taxableIncome: 501050, taxRate: 0.35 },
             { taxableIncome: 751600, taxRate: 0.37 },
         ],
-        "Married filing separately": [
+        "Married Filing Separately": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 11925, taxRate: 0.12 },
             { taxableIncome: 48475, taxRate: 0.22 },
@@ -118,7 +126,7 @@ export const brackets: Brackets = {
             { taxableIncome: 250525, taxRate: 0.35 },
             { taxableIncome: 375800, taxRate: 0.37 },
         ],
-        "Head of household": [
+        "Head of Household": [
             { taxableIncome: 0, taxRate: 0.10 },
             { taxableIncome: 17000, taxRate: 0.12 },
             { taxableIncome: 64850, taxRate: 0.22 },

@@ -4,19 +4,38 @@ import Chart from "./chart";
 import Cards from "./cards";
 import { PointsProvider } from "./points";
 import "./index.css";
-import { TaxYear, FilingStatus } from "./brackets";
+import { TaxYear, TaxYears, FilingStatus, FilingStatuses } from "./brackets";
+
+const defaultYear = "2024" as TaxYear;
+const defaultFilingStatusSlug = "married-joint";
+
+const statusSlugMap: Record<string, FilingStatus> = {
+  "single": "Single",
+  "married-joint": "Married Filing Jointly",
+  "married-separate": "Married Filing Separately",
+  "head-household": "Head of Household",
+};
+
+const getSlugFromStatus = (status: FilingStatus): string => {
+  const entry = Object.entries(statusSlugMap).find(([, value]) => value === status);
+  return entry ? entry[0] : "";
+};
+
+const getStatusFromSlug = (slug: string | null): FilingStatus => {
+  return statusSlugMap[slug || defaultFilingStatusSlug];
+};
+
 
 const App: React.FC = () => {
-  const [taxYear, setTaxYear] = useState("2024" as TaxYear);
-  const [filingStatus, setFilingStatus] = useState("Married filing jointly" as FilingStatus);
+  const url = new URL(window.location.href);
+  const [taxYear, setTaxYear] = useState(url.searchParams.get("year") as TaxYear || defaultYear);
+  const [filingStatus, setFilingStatus] = useState(getStatusFromSlug(url.searchParams.get("status")));
 
-  const taxYears = ["2023", "2024", "2025"] as TaxYear[];
-  const filingStatuses = [
-    "Single",
-    "Married filing jointly",
-    "Married filing separately",
-    "Head of household",
-  ] as FilingStatus[];
+  window.addEventListener("popstate", (): void => {
+    const url = new URL(window.location.href);
+    setTaxYear(url.searchParams.get("year") as TaxYear || defaultYear);
+    setFilingStatus(getStatusFromSlug(url.searchParams.get("status")));
+  });
 
   return (
     <PointsProvider>
@@ -31,10 +50,16 @@ const App: React.FC = () => {
             <select
               id="tax-year"
               value={taxYear}
-              onChange={(e) => setTaxYear(e.target.value as TaxYear)}
+              onChange={(e) => {
+                const year = e.target.value as TaxYear;
+                setTaxYear(year);
+                const url = new URL(window.location.href);
+                url.searchParams.set("year", year);
+                window.history.pushState({}, "", url.toString());
+              }}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
-              {taxYears.map((year) => (
+              {TaxYears.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
@@ -50,10 +75,16 @@ const App: React.FC = () => {
             <select
               id="filing-status"
               value={filingStatus}
-              onChange={(e) => setFilingStatus(e.target.value as FilingStatus)}
+              onChange={(e) => {
+                const status = e.target.value as FilingStatus;
+                setFilingStatus(status);
+                const url = new URL(window.location.href);
+                url.searchParams.set("status", getSlugFromStatus(status));
+                window.history.pushState({}, "", url.toString());
+              }}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
-              {filingStatuses.map((status) => (
+              {FilingStatuses.map((status) => (
                 <option key={status} value={status}>
                   {status}
                 </option>
